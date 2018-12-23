@@ -1,12 +1,12 @@
 import React from 'react'
 
-function createList(props)
+function createList({list, handleDone})
 {
-  return props.list.map(item => {
+  return list.map(item => {
     return (
-      <li className="li-to-do" key={props.list.id}>
+      <li className="li-to-do" key={item.id}>
         <span>{item.text} </span>
-        <button onClick={()=>props.handleDone(item)}>Done</button>
+        <button onClick={()=>handleDone(item)}>Done</button>
       </li>)    
   })
 }

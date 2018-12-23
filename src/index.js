@@ -5,28 +5,28 @@ import SingleToDo from './components/single_to_do'
 import SingleDoneItem from './components/single_done_item'
 import './css/styles.css'
 
-function ToDoList(props){ 
+function ToDoList({list, handleDone}){ 
   return (
     <div>
-      <h3>Pending: {props.list.length}</h3>
+      <h3>Pending: {list.length}</h3>
       <ul>
-        <SingleToDo 
-          list={props.list}
-          handleDone={props.handleDone}
+        <SingleToDo  
+          list={list}
+          handleDone={handleDone}
           />
       </ul>
     </div>
   )
 }
 
-function DoneList(props){ 
+function DoneList({list, handleRemove}){ 
   return (
     <div>
-      <h3>Done: {props.list.length}</h3>
+      <h3>Done: {list.length}</h3>
       <ul>
-        <SingleDoneItem 
-          list={props.list}
-          handleRemove={props.handleRemove}
+        <SingleDoneItem  
+          list={list}
+          handleRemove={handleRemove}
           />
       </ul>
     </div>
@@ -45,8 +45,8 @@ class App extends Component{
   }
 
   /* typing detected in input box */
-  handleInput = (event) => {
-    this.setState({inputValue:event.target.value})
+  handleInput = ({target:{value}}) => {
+    this.setState({inputValue:value})
   }
   
   /* add button clicked */
@@ -73,17 +73,17 @@ class App extends Component{
   }
 
   /* mark item done */
-  handleDone = (item) => {
+  handleDone = ({id, text}) => {
 
     /* update state */
     this.setState(currentState =>{       
       /* filter to remove done item */
-      const filteredList = currentState.list.filter( i => i.id !== item.id)
+      const filteredList = currentState.list.filter( i => i.id !== id)
 
       /* create a updated with updated done value  */
       const list = [...filteredList, {
-        id:item.id,
-        text:item.text, 
+        id,
+        text, 
         done:true}]
       
       /* update list */
@@ -92,12 +92,12 @@ class App extends Component{
   }
 
   /* delete item */
-  handleRemove(item){
+  handleRemove({id}){
 
     /* update state */
     this.setState(currentState =>{       
       /* filter to remove done item */
-      const list = currentState.list.filter( i => i.id !== item.id)
+      const list = currentState.list.filter( i => i.id !== id)
  
       /* update list */
       return {list}

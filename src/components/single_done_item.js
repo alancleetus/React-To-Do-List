@@ -1,12 +1,12 @@
 import React from 'react'
 
-function createList(props)
+function createList({list, handleRemove})
 {
-  return props.list.map(item => {
+  return list.map(item => {
 
-      return (<li className="done-item" key={props.list.id}>
+      return (<li className="done-item" key={item.id}>
         <span>{item.text} </span>
-        <button onClick={()=>props.handleRemove(item)}>Delete</button>
+        <button onClick={()=>handleRemove(item)}>Delete</button>
       </li>)    
   })
 }

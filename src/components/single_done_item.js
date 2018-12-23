@@ -3,15 +3,15 @@ import React from 'react'
 function createList(props)
 {
   return props.list.map(item => {
-    return (
-      <li className="li-to-do" key={props.list.id}>
+
+      return (<li className="done-item" key={props.list.id}>
         <span>{item.text} </span>
-        <button onClick={()=>props.handleDone(item)}>Done</button>
+        <button onClick={()=>props.handleRemove(item)}>Delete</button>
       </li>)    
   })
 }
 
-const SingleToDo = (props)=>{
+const SingleDoneItem = (props)=>{
   return (
     <div>
         {createList(props)}
@@ -19,4 +19,4 @@ const SingleToDo = (props)=>{
   )
 }
 
-export default SingleToDo
+export default SingleDoneItem

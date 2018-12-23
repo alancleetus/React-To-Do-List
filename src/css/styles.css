@@ -9,3 +9,14 @@ body{
   padding:10px;
 }
 
+.li-to-do{
+  text-transform: capitalize;
+}
+
+.done-item
+{
+  color:lightslategray;
+  font-style: italic;
+  text-decoration: line-through;
+  text-transform: capitalize;
+}

@@ -19,6 +19,13 @@ function ToDoList({list, handleDone}){
   )
 }
 
+const CurrentSearch = ({list:searchFilterList})=> {
+  return (
+    searchFilterList.map(({id, text, done})=>{
+      return <li key={id} >{text} ({done?'Done':'Pending'})</li>
+    }))
+}
+
 function DoneList({list, handleRemove}){ 
   return (
     <div>
@@ -64,9 +71,9 @@ class App extends Component{
 
     /* update state: reset input box, add to list, update next key val */
     this.setState((currentState) => { 
-      return {
-          inputValue:'',  
-          list:[...currentState.list, newToDo],  
+      return {  
+          inputValue:'',
+          list:[...currentState.list, newToDo],
           nextKey:currentState.nextKey+1  
         }
     })
@@ -105,19 +112,26 @@ class App extends Component{
   }
    
   render(){    
+    
     return (
       <div>
         <Header />
-
+        
         <input 
           type="text" 
           value={this.state.inputValue}
           onChange={(e)=>this.handleInput(e)} 
           placeholder="Insert item to do..."
           />
-        <button onClick={()=>this.handleAdd()}>Add</button> 
-        <hr />
 
+        <button onClick={()=>this.handleAdd()}>Add</button> 
+        <hr style={{width:'50%'}}/>
+        <CurrentSearch list={this.state.list.filter((item)=>{
+          if(this.state.inputValue==='')
+            return false
+          return item.text.includes(this.state.inputValue)
+    })}/>
+        <hr style={{width:'50%'}}/>
         <ToDoList 
           list={this.state.list.filter((item)=> item.done===false)}
           handleDone={this.handleDone}
